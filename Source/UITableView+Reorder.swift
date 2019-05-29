@@ -22,6 +22,7 @@
 
 import UIKit
 
+@objc
 extension UITableView {
     
     private struct AssociatedKeys {
@@ -29,6 +30,7 @@ extension UITableView {
     }
     
     /// An object that manages drag-and-drop reordering of table view cells.
+    @objc
     public var reorder: ReorderController {
         if let controller = objc_getAssociatedObject(self, &AssociatedKeys.reorderController) as? ReorderController {
             return controller
