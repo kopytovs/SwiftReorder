@@ -40,6 +40,7 @@ public enum ReorderSpacerCellStyle {
 /**
  The delegate of a `ReorderController` must adopt the `TableViewReorderDelegate` protocol. This protocol defines methods for handling the reordering of rows.
  */
+@objc
 public protocol TableViewReorderDelegate: class {
     
     /**
@@ -48,6 +49,7 @@ public protocol TableViewReorderDelegate: class {
      - Parameter sourceIndexPath: The index path of the row to be moved.
      - Parameter destinationIndexPath: The index path of the row's new location.
      */
+    @objc
     func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
     
     /**
@@ -55,6 +57,7 @@ public protocol TableViewReorderDelegate: class {
      - Parameter tableView: The table view requesting this information.
      - Parameter indexPath: The index path of a row.
      */
+    @objc
     func tableView(_ tableView: UITableView, canReorderRowAt indexPath: IndexPath) -> Bool
     
     /**
@@ -63,6 +66,7 @@ public protocol TableViewReorderDelegate: class {
      - Parameter sourceIndexPath: The original index path of the row to be moved.
      - Parameter proposedDestinationIndexPath: The potential index path of the row's new location.
      */
+    @objc
     func tableView(_ tableView: UITableView, targetIndexPathForReorderFromRowAt sourceIndexPath: IndexPath, to proposedDestinationIndexPath: IndexPath) -> IndexPath
 
     /**
@@ -70,6 +74,7 @@ public protocol TableViewReorderDelegate: class {
      - Parameter tableView: The table view providing this information.
      - Parameter indexPath: The index path of the selected row.
      */
+    @objc
     func tableViewDidBeginReordering(_ tableView: UITableView, at indexPath: IndexPath)
     
     /**
@@ -78,6 +83,7 @@ public protocol TableViewReorderDelegate: class {
      - Parameter initialSourceIndexPath: The initial index path of the selected row, before reordering began.
      - Parameter finalDestinationIndexPath: The final index path of the selected row.
      */
+    @objc
     func tableViewDidFinishReordering(_ tableView: UITableView, from initialSourceIndexPath: IndexPath, to finalDestinationIndexPath: IndexPath)
     
 }
@@ -110,19 +116,23 @@ public class ReorderController: NSObject {
     // MARK: - Public interface
     
     /// The delegate of the reorder controller.
+    @objc
     public weak var delegate: TableViewReorderDelegate?
     
     /// Whether reordering is enabled.
+    @objc
     public var isEnabled: Bool = true {
         didSet { reorderGestureRecognizer.isEnabled = isEnabled }
     }
-    
+
+    @objc
     public var longPressDuration: TimeInterval = 0.3 {
         didSet {
             reorderGestureRecognizer.minimumPressDuration = longPressDuration
         }
     }
-    
+
+    @objc
     public var cancelsTouchesInView: Bool = false {
         didSet {
             reorderGestureRecognizer.cancelsTouchesInView = cancelsTouchesInView
@@ -130,30 +140,38 @@ public class ReorderController: NSObject {
     }
     
     /// The duration of the cell selection animation.
+    @objc
     public var animationDuration: TimeInterval = 0.2
     
     /// The opacity of the selected cell.
+    @objc
     public var cellOpacity: CGFloat = 1
     
     /// The scale factor for the selected cell.
+    @objc
     public var cellScale: CGFloat = 1
     
     /// The shadow color for the selected cell.
+    @objc
     public var shadowColor: UIColor = .black
     
     /// The shadow opacity for the selected cell.
+    @objc
     public var shadowOpacity: CGFloat = 0.3
     
     /// The shadow radius for the selected cell.
+    @objc
     public var shadowRadius: CGFloat = 10
     
     /// The shadow offset for the selected cell.
+    @objc
     public var shadowOffset = CGSize(width: 0, height: 3)
     
     /// The spacer cell style.
     public var spacerCellStyle: ReorderSpacerCellStyle = .automatic
     
     /// Whether or not autoscrolling is enabled
+    @objc
     public var autoScrollEnabled = true
     
     /**
